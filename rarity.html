@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DumDummz</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="DumDumz">
+    <meta name="description" content="Welcome to DumDumz!">
+    <meta name="keywords" content="DumDumz, dumdum, digital assets, collectibles, Arweave, AO">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="language" content="English">
+    <meta name="author" content="The DumDumz Team">
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dumdumznfts.arweave.net/">
+    <meta property="og:title" content="DumDumz">
+    <meta property="og:description" content="Welcome to the Dumverse!">
+    <meta property="og:image" content="https://arweave.net/AcCm-N2AOxI17KLIUqZOBxBFrExpvogn3IeM_oM2lUo">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://dumdumznfts.arweave.net/">
+    <meta name="twitter:title" content="DumDumz">
+    <meta name="twitter:description" content="Welcome to the Dumverse!">
+    <meta name="twitter:image" content="https://arweave.net/AcCm-N2AOxI17KLIUqZOBxBFrExpvogn3IeM_oM2lUo">
+
+    <!-- Additional Meta Tags for Enhanced Search Results -->
+    <meta name="theme-color" content="#8c52ff"> 
+    <meta name="msapplication-TileColor" content="#8c52ff">
+    <meta name="msapplication-TileImage" content="https://arweave.net/AcCm-N2AOxI17KLIUqZOBxBFrExpvogn3IeM_oM2lUo">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://arweave.net/AcCm-N2AOxI17KLIUqZOBxBFrExpvogn3IeM_oM2lUo" type="image/x-icon">
+    <link rel="shortcut icon" href="https://arweave.net/AcCm-N2AOxI17KLIUqZOBxBFrExpvogn3IeM_oM2lUo" type="image/x-icon">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="dumdumz.css">
+    <link rel="stylesheet" href="dumdumztraitz.css">
+    <link rel="stylesheet" href="background/AnimatedBackground.css">
+</head>
+
+
+<body>
+
+
+
+<div class="header">
+    <div class="logo-container">
+        <a href="index.html" class="logo-link">
+            <img class="mainLogo" src="clean_logo.png" alt="DumDumz Home">
+        </a>        
+    </div>
+
+    <div class="navigation">
+        <div class="dropdown">
+            <button class="dropdown-button" id="DDDropdown">DumDumz ▼</button>
+            <div class="dropdown-content" id="DDContent">
+                <a href="https://bazar.arweave.net/#/collection/JAHF1fo4MECRZZFKGcT0B6XM94Lqe-3FtB4Ht_kTEK0/assets/" target="_blank">Adopt Uz</a>
+                <a href="https://test_aoction-house.arweave.dev/index.html" target="_blank">AOctionz</a>
+                <a href="rarity.html">Rarity</a>
+            </div>
+        </div>
+        
+        <div class="dropdown">
+            <button class="dropdown-button" id="DumverseDropdown">Dumverse ▼</button>
+            <div class="dropdown-content" id="DumverseContent">
+                <a href="https://dumverse-ao.vercel.app/" target="_blank">Play Game</a>
+            </div>
+        </div>
+        
+        <div class="dropdown">
+            <button class="dropdown-button" id="FrenzDropdown">Frenz ▼</button>
+            <div class="dropdown-content" id="FrenzContent">
+                <a href="https://discord.gg/gxbnnG43DF" target="_blank">Discord</a>
+                <a href="https://x.com/dumdumznfts" target="_blank">X/Twitter</a>
+                <a href="https://www.youtube.com/watch?v=HB6rXqTdF0M" target="_blank">YouTube</a>
+            </div>
+        </div>
+        
+        <button onclick="window.location.href='roadmap.html'" class="dropdown-button">Roadmapz</button>
+    </div>
+</div>
+
+
+<!-- Add this after your header and before the area div -->
+<div class="rarity-container">
+    <!-- Main browser container -->
+    <div class="dumdumz-browser">
+        <!-- Left sidebar -->
+        <div class="browser-sidebar">
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search DumDumz...">
+            </div>
+            <div class="traits-filter">
+                <!-- Traits will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Main content area -->
+        <div class="browser-main">
+            <!-- NFT grid container -->
+            <div class="nft-grid">
+                <!-- NFT cards will be dynamically added here -->
+            </div>
+
+            <!-- Pagination section -->
+            <div class="pagination-container">
+                <div class="pagination-controls">
+                    <button class="pagination-prev">←</button>
+                    <div class="pagination-numbers">
+                        <!-- Page numbers will be dynamically added here -->
+                    </div>
+                    <button class="pagination-next">→</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal template -->
+    <div class="nft-modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header"></div>
+            <div class="modal-body">
+                <div class="modal-image"></div>
+                <div class="modal-details"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="area">
+    <ul class="circles" id="circles-container"></ul>
+</div>
+
+<footer class = "footer">
+
+</footer>
+
+<script src="background/AnimatedBackground.js"></script>
+<script src="dumdumztraits.js"></script>
+<script src="dumdumz.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+@font-face {
+    font-family: 'Dumverse';
+    src: url('./Dumverse_Font.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+body, html {
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Dumverse', Georgia, Arial;
+    color: white;
+    background: linear-gradient(to right, #8c52ff, #5ce1e6);
+
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.logo-link {
+    position: absolute; /* Match the logo's absolute positioning */
+    top: 10px; /* Same as the logo's margin-top */
+    left: 25px; /* Same as the logo's margin-left */
+    display: inline-block; /* Ensure the link wraps the content */
+    text-decoration: none; /* Remove underline (if needed) */
+    height: 100%;
+    width: auto;
+}
+
+.mainLogo {
+    height: 8%; /* Maintain the logo's small size */
+    display: block; /* Prevent inline spacing issues */
+}
+
+
+.logo-container {
+    top: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    padding: 10px 0;
+    justify-content: center;
+}
+
+.dropdown-button {
+    font-family: 'Dumverse';
+    padding: 8px 16px;
+    width: 200px;
+    font-size: 26px;
+    color: #ffffff;
+    background: linear-gradient(to right, #9cd7ed, #029dd1);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+}
+
+.dropdown-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.dropdown-button:active {
+    transform: scale(0.95);  /* Slightly shrink the button */
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);  /* Add an inset shadow to make it look pressed */
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 2px); /* Position below button with small gap */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px; /* Match button width */
+    background: #8c52ff;
+    border-radius: 15px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    font-family: 'Dumverse';
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+}
+
+.show {
+    display: block;
+    animation: dropdownFade 0.3s ease-in-out;
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.roadmap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 120px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 26px;
+    z-index: 10;
+}
+
+.intro-dumz {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 120px;
+    justify-content: center;
+}
+
+.dumzpng {
+    height: auto;
+    width: 350px;
+    border-radius: 26px;
+}
+
+.whatisdumdumz {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 45%;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 26px;
+    background-color: #F182C7;
+    z-index: 10;
+}
+
+.whatisdumdumz h2 {
+    font-size: 50px;
+    font-weight: 200;
+    margin: 0;
+    padding-top: 15px;
+}
+
+.whatisdumdumz p {
+    font-size: 25px;
+    font-weight: 200;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    margin: 0;
+}
+
+.whatisdumverse {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 50%;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 26px;
+    background-color: #43BCCD;
+    z-index: 10;
+}
+
+.whatisdumverse h2 {
+    font-size: 50px;
+    font-weight: 200;
+    margin: 0;
+    padding-top: 15px;
+}
+
+.whatisdumverse p {
+    font-size: 25px;
+    font-weight: 200;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    margin: 0;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 120px;
+    width: 60%;
+    background-color: #8c52ff;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 26px;
+    z-index: 10;
+}
+.team h2 {
+    font-size: 50px;
+    font-weight: 200;
+    margin: 0;
+    padding-top: 15px;
+}
+
+.team-members {
+    display: inline-block;
+    justify-content: center;
+}
+
+.team-members img {
+    margin: 0;
+    height: 200px;
+    width: 200px;
+    padding: 10px;
+    border-radius: 26px;
+}
+
+.image-container {
+    position: relative;
+}
+
+.cherie {
+    width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease;
+}
+
+.cherie.hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.image-container:hover .cherie.hover {
+    opacity: 1;
+}
+
+.image-container:hover .cherie.main {
+    opacity: 0;
+}
+
+.team-members h3 {
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+    font-weight: 200;
+}
+
+.team-members p {
+    margin: 0;
+    padding: 10px;
+}
+
+.footer {
+    height: 30px;
+    width: 100%;
+    margin-top: 50px;
+    padding-bottom: 30px;  /* Added padding at bottom */
+    clear: both;  /* Ensures it clears any floating elements */
+}
