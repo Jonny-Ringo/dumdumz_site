@@ -21,6 +21,8 @@ class DumDumzBrowser {
             modalContent: document.querySelector('.modal-content'),
             modalClose: document.querySelector('.modal-close')
         };
+        this.elements.sidebarToggle = document.querySelector('.sidebar-toggle');
+        this.elements.sidebar = document.querySelector('.browser-sidebar');
         
         this.bindEvents();
     }
@@ -42,6 +44,10 @@ class DumDumzBrowser {
             this.filterNFTs();
         });
 
+        this.elements.sidebarToggle?.addEventListener('click', () => {
+            this.elements.sidebar?.classList.toggle('active');
+        });
+
         this.elements.searchBox?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -49,6 +55,14 @@ class DumDumzBrowser {
                 this.selectedTraits.clear();
                 this.updateTraitCheckboxes();
                 this.filterNFTs();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (this.elements.sidebar?.classList.contains('active') &&
+                !this.elements.sidebar.contains(e.target) &&
+                !this.elements.sidebarToggle.contains(e.target)) {
+                this.elements.sidebar.classList.remove('active');
             }
         });
     }
@@ -126,13 +140,17 @@ class DumDumzBrowser {
         const container = this.elements.traitsFilter;
         container.innerHTML = '<h3>Traits</h3>';
         
+        // Store initial NFT order if not already stored
+        if (!this.initialNFTOrder) {
+            this.initialNFTOrder = [...this.nfts].map(nft => nft.edition);
+        }
         // Add sort dropdown
         const sortDropdown = document.createElement('select');
         sortDropdown.className = 'sort-dropdown';
         
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
-        defaultOption.textContent = 'Sort by';
+        defaultOption.textContent = 'Sort by(reset sort)';
 
         const rarityOption = document.createElement('option');
         rarityOption.value = 'rarity';
@@ -148,6 +166,17 @@ class DumDumzBrowser {
         
         sortDropdown.addEventListener('change', (e) => {
             this.sortBy = e.target.value;
+            this.currentPage = 1;
+            
+            if (this.sortBy === '') {
+                // Restore original order
+                this.nfts.sort((a, b) => {
+                    const indexA = this.initialNFTOrder.indexOf(a.edition);
+                    const indexB = this.initialNFTOrder.indexOf(b.edition);
+                    return indexA - indexB;
+                });
+            }
+            
             this.filterNFTs();
         });
         
@@ -245,22 +274,36 @@ class DumDumzBrowser {
     }
     
     showNFTDetails(nft) {
-        const modalHeader = this.elements.modal.querySelector('.modal-header');
-        const modalImage = this.elements.modal.querySelector('.modal-image');
-        const modalDetails = this.elements.modal.querySelector('.modal-details');
+        const modalHeader = this.elements.modal.querySelector('.nft-name');
+        const modalImage = this.elements.modal.querySelector('.nft-image');
+        const rankValue = this.elements.modal.querySelector('.rank-value');
+        const scoreValue = this.elements.modal.querySelector('.score-value');
+        const traitList = this.elements.modal.querySelector('.trait-list');
+        const traitTemplate = document.getElementById('trait-template');
         
         const rank = this.rarityRanks.get(nft.edition);
         const rarityScore = this.rarityScores.find(score => score.edition === nft.edition)?.score || 0;
+        const bazarLink = this.elements.modal.querySelector('.bazar-link');
+        const truncatedId = this.elements.modal.querySelector('.truncated-id');
+        const id = nft.id;
         
-        modalHeader.innerHTML = `<h2>${nft.name}</h2>`;
-        modalImage.innerHTML = `<img src="https://arweave.net/${nft.id}" alt="${nft.name}">`;
+        // Set up the link
+        bazarLink.href = `https://bazar.arweave.net/#/asset/${id}`;
+        // Set up the truncated display
+        const displayId = `${id.substring(0, 6)}...${id.substring(id.length - 4)}`;
+        truncatedId.textContent = displayId;
+        modalHeader.textContent = nft.name;
+        modalImage.src = `https://arweave.net/${nft.id}`;
+        modalImage.alt = nft.name;
         
-        // Find the rarest trait when in rarestTrait sort mode
+        // Update rarity info
+        rankValue.textContent = rank;
+        scoreValue.textContent = rarityScore;
+        
         let rarestTraitCount = Number.MAX_SAFE_INTEGER;
         let rarestTraits = [];
         
         if (this.sortBy === 'rarestTrait') {
-            // First find the lowest count
             nft.attributes.forEach(attr => {
                 const count = this.traitCounts[attr.trait_type][attr.value];
                 if (count < rarestTraitCount) {
@@ -272,7 +315,10 @@ class DumDumzBrowser {
             });
         }
         
-        const traitRarityInfo = nft.attributes.map(attr => {
+        
+        traitList.innerHTML = ''; // Clear existing traits
+        
+        nft.attributes.forEach(attr => {
             const count = this.traitCounts[attr.trait_type][attr.value];
             const isRarestTrait = this.sortBy === 'rarestTrait' && 
                                  rarestTraits.some(t => 
@@ -280,21 +326,20 @@ class DumDumzBrowser {
                                      t.value === attr.value
                                  );
             
-            return `
-            <div class="trait-item ${isRarestTrait ? 'rarest-trait' : ''}">
-                ${attr.trait_type}: ${attr.value}
-                <span class="trait-count">
-                    (Count: ${count})
-                </span>
-            </div>
-        `;
-        }).join('');
-        
-        modalDetails.innerHTML = `
-            <p>Rarity Rank: ${rank} (Total Score: ${rarityScore})</p>
-            <h3>Traits</h3>
-            ${traitRarityInfo}
-        `;
+            const traitItem = traitTemplate.content.cloneNode(true);
+            const traitDiv = traitItem.querySelector('.trait-item');
+            const traitName = traitItem.querySelector('.trait-name');
+            const traitCount = traitItem.querySelector('.trait-count');
+            
+            if (isRarestTrait) {
+                traitDiv.classList.add('rarest-trait');
+            }
+            
+            traitName.textContent = `${attr.trait_type}: ${attr.value}`;
+            traitCount.textContent = `(Count: ${count})`;
+            
+            traitList.appendChild(traitItem);
+        });
         
         this.elements.modal.style.display = 'block';
     }
@@ -392,7 +437,7 @@ class DumDumzBrowser {
         this.elements.paginationNumbers.innerHTML = '';
         
         let startPage = Math.max(1, this.currentPage - 2);
-        let endPage = Math.min(totalPages, startPage + 4);
+        let endPage = Math.min(totalPages, startPage + 3);
         
         if (endPage - startPage < 4) {
             startPage = Math.max(1, endPage - 4);
