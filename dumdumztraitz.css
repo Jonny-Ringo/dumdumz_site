@@ -12,6 +12,7 @@
     padding: 0 20px;
     margin-top: 50px;
     z-index: 100;
+    position: relative;
 }
 
 /* Browser layout */
@@ -23,13 +24,14 @@
 
 /* Sidebar styles */
 .browser-sidebar {
+    margin-top: 20px;
     width: 250px;
     flex-shrink: 0;
 }
 
 .search-container {
     font-family: 'Dumverse';
-    background: #8c52ff;
+    background: #b47aea;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -46,7 +48,7 @@
 }
 
 .traits-filter {
-    background: #8c52ff;
+    background: #b47aea;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -132,7 +134,7 @@
 .trait-header {
     font-weight: 200;
     padding: 2px;
-    background-color: #8c52ff;
+    background-color: #b47aea;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -141,7 +143,7 @@
 }
 
 .trait-header:hover {
-    background-color: #8c52ff;
+    background-color: #b47aea;
 }
 
 .trait-content {
@@ -203,33 +205,114 @@
     max-width: 100%;
 }
 
-@media (min-width: 360px) {
-    .nft-grid {
-        grid-template-columns: repeat(1, 1fr);
-    }
+
+
+.sidebar-toggle {
+    display: none;
+    position: absolute;
+    top: -50px;
+    margin-top: 0px;
+    left: 20px;
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+    border: 1px solid white;
+    border-radius: 4px;
+    background: linear-gradient(to right, #9cd7ed, #029dd1);
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-@media (min-width: 640px) {
-    .nft-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.sidebar-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
-@media (min-width: 768px) {
-    .nft-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+/* Add the exact active effect */
+.sidebar-toggle:active {
+    transform: scale(0.95);
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
 
-@media (min-width: 1024px) {
-    .nft-grid {
-        grid-template-columns: repeat(5, 1fr);
-    }
+.sidebar-toggle .hamburger-icon {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
+
+/* Base styles for the container */
+.hamburger-icon {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Common styles for all three lines */
+.hamburger-icon::before,
+.hamburger-icon::after,
+.hamburger-icon div {
+    content: '';
+    position: absolute;
+    height: 2px;
+    background-color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+}
+
+/* Top line */
+.hamburger-icon::before {
+    top: calc(50% - 10px);
+    width: 26px;
+}
+
+/* Middle line */
+.hamburger-icon div {
+    top: 53%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+}
+
+/* Bottom line */
+.hamburger-icon::after {
+    top: calc(50% + 10px);
+    width: 14px;
+}
+
+
+
+
+/* Active state */
+.sidebar-toggle.active {
+    background: #b47aea;
+}
+
+/* Rest of the sidebar styles remain the same */
+.browser-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    position: static;
+    height: auto;
+    transform: none;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+
+
+
+
 
 /* NFT Cards */
 .nft-card {
-    background-color: #8c52ff;
+    background-color: #b47aea;
     border-radius: 8px;
     padding: 15px;
     width: 210px;
@@ -271,7 +354,7 @@
 
 /* Pagination */
 .pagination-container {
-    margin-top: auto;
+    margin: auto;
     padding: 20px 0;
     background: transparent;
 }
@@ -299,19 +382,20 @@
 }
 
 .pagination-controls button:hover {
-    background: #f5f5f5;
+    background: white;
+    color: #029dd1;
 }
 
 .pagination-controls button.active {
-    background: #8c52ff;
+    background: #b47aea;
     color: white;
     border-color: white;
 }
 
 .pagination-controls button:disabled {
-    background: #f5f5f5;
+    background: transparent;
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.0;
 }
 
 /* Modal */
@@ -323,28 +407,40 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.7);
-    z-index: 1000;
+    z-index: 10000;
 }
 
 .modal-header h2 {
     font-weight: 200;
     font-size: 32px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
     top: 0;
-    right: 130px;
-    position: absolute;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-decoration: underline;
+}
+
+
+.rarity-section {
+    text-align: center;
+    margin-bottom: 0;
+    bottom: 0;
+    margin-top: 5px;
+}
+
+.rarity-rank {
+    font-weight: 200;
 }
 
 .modal-content {
     font-weight: 200;
-    background: #8c52ff;
+    background: #b47aea;
     border: solid 1px white;
     margin: 5% auto;
     padding: 20px;
     width: 90%;
     max-width: 800px;
-    border-radius: 25px;
+    border-radius: 26px;
     position: relative;
 }
 
@@ -361,20 +457,62 @@
 .modal-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 0px;
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0px;
+    padding: 0;
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0px;
+    padding: 0;
+}
+
+.bazar-linkout {
+    text-align: center;
+    margin-top: 0;  
+    margin-bottom: 5px;
+    padding: 0;  /* Reset padding */
+}
+
+.bazar-link {
+    font-family: Dumverse;
+    color: white;
+    text-decoration: none;
+    display: inline-block;  /* Makes the link respect line-height */
+}
+
+.bazar-link:hover {
+    font-family: Dumverse;
+    opacity: 0.8;
+}
+
+.truncated-id {
+    font-family: Dumverse;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0;
 }
 
 .modal-image img {
+    margin-top: 0px;
     width: 100%;
     border-radius: 8px;
 }
 
 .modal-details {
-    margin-top: 30px;
+    margin-top: 5px;
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 25px;
+    border-radius: 26px;
     width: auto;
     height: 360px; /* Allow it to grow fully in height */
     overflow-y: auto;
@@ -382,6 +520,7 @@
     flex-direction: column; /* Stack children vertically */
     justify-content: space-between; /* Ensure space is evenly distributed */
     box-sizing: border-box;
+    
     &::-webkit-scrollbar {
         width: 8px;  /* Width of the scrollbar */
     }
@@ -392,7 +531,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background: rgba(140, 82, 255, 0.6);  /* Using your #8c52ff with opacity */
+        background: rgba(140, 82, 255, 0.6);  /* Using your #b47aea with opacity */
         border-radius: 4px;
     }
 
@@ -406,28 +545,212 @@
 }
 
 .modal-details h3 {
+    text-align: center;
     font-size: 26px;
     font-weight: 200;
-    margin: 0 auto;
-
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: white 2px solid;
+    width: 100%;
 }
+
+
 
 .modal-details p {
     font-weight: 200;
     font-size: 18px;
+
 }
 
 .trait-item {
-    background: #8c52ff;
-    padding: 8px;
-    margin-bottom: 5px;
+    background: #b47aea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding: 5px;
+    margin-bottom: 10px;
     border-radius: 4px;
     font-size: 16px;
     font-weight: 200;
+    margin-left: 5px;
 }
 
 .trait-count {
+    margin-left: auto;
     font-size: 12px;
     color: white;
-    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.total-score {
+    text-align: center;
+    width: 100%;
+    padding-top: 5px;
+    border-top: white 2px solid;
+}
+
+@media (max-width: 850px) {
+    .nft-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+
+    .rarity-container {
+        width: 75vw;
+        left: 0;
+        margin-left: 0;
+        right: auto;
+        padding: 0 20px;
+        margin-top: 90px;
+
+    }
+
+    .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .browser-sidebar {
+        position: absolute;
+        left: auto;
+        right: auto;
+        top: 10px;
+        margin-top: 0;
+        height: fit-content;
+        background: #b47aea;
+        border-radius: 26px;
+        z-index: 999;
+        transform: translateX(-200%);
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+
+    .browser-sidebar.active {
+        transform: translateX(3%);
+    }
+
+    .dumdumz-browser {
+        position: relative;
+    }
+
+    .browser-main {
+        width: 100%;
+    }
+
+    .bazar-linkout {
+        font-size: 12px;
+        text-align: center;
+        margin-top: 0;  
+        margin-bottom: 5px;
+        padding: 0;  /* Reset padding */
+    }
+
+    .nft-modal {
+        display: none;
+        position: fixed;
+        height: 150%;
+        top: -70px;
+        z-index: 10000;
+    }
+
+    .modal-content {
+        transform: scale(.8);
+        font-weight: 200;
+        background: #b47aea;
+        border: solid 1px white;
+        margin: 2.5% auto;
+        padding: 20px;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 26px;
+        position: relative;
+    }
+    
+    .modal-body{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-header h2 {
+        font-weight: 200;
+        font-size: 26px;
+        text-align: center;
+        top: 0;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        text-decoration: underline;
+    }
+
+    .modal-details h3 {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 200;
+        margin: 10px 0;
+        padding-bottom: 5px;
+        border-bottom: white 2px solid;
+        width: 100%;
+    }
+    
+    
+    
+    .modal-details p {
+        font-weight: 200;
+        font-size: 14px;
+    
+    }
+
+    .trait-item {
+        background: #b47aea;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 95%;
+        padding: 5px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 200;
+        margin-left: 5px;
+    }
+    
+    .trait-count {
+        margin-left: auto;
+        font-size: 10px;
+        color: white;
+        padding-right: 10px;
+    }
+
+}
+
+@media (min-width: 880px) {
+    .nft-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .browser-sidebar {
+        width: 250px;
+        flex-shrink: 0;
+    }
+
+
+}
+
+@media (min-width: 1120px) {
+    .nft-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1390px) {
+    .nft-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1650px) {
+    .nft-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
